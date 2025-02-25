@@ -10,7 +10,9 @@ const Header = () => {
     const { user, logOut } = useContext(AuthContext);
     console.log(user);
     const handleLogout = () => {
-        
+        logOut()
+        .then(result => {})
+        .catch(error => console.error(error));
     }
 
     return (
@@ -23,7 +25,7 @@ const Header = () => {
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Sign up</Link>
                 {
-                    user && <span>Welcome{user.email} <button onClick={handleLogout}>Sign Out</button></span>
+                    user && <span className='text-white'>Welcome{user.email} <button onClick={handleLogout}>Log Out</button></span>
                 }
             </div>
         </nav>

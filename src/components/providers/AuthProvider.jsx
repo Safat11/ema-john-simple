@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import React, { createContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import app from '../../firebase/firebase.config';
 
 export const AuthContext = createContext(null);
@@ -21,6 +21,18 @@ export const AuthProvider = ({children}) => {
     const logOut = () =>{
         return signOut(auth);
     }
+
+    // Observer user auth state
+    useEffect (() => {
+     const unsubscribe =  onAuthStateChanged(auth, currentUser =>{
+            setUser(currentUser);
+        });
+        
+        // Stop observing while unmounting
+        return () =>{
+            return unsubscribe();
+        }
+    },[])
 
     const authInfo = {
         user,
