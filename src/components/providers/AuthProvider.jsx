@@ -9,6 +9,7 @@ const auth = getAuth(app);
 export const AuthProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
@@ -26,8 +27,9 @@ export const AuthProvider = ({children}) => {
     useEffect (() => {
      const unsubscribe =  onAuthStateChanged(auth, currentUser =>{
             setUser(currentUser);
+            setLoading(false);
         });
-        
+
         // Stop observing while unmounting
         return () =>{
             return unsubscribe();
@@ -36,6 +38,7 @@ export const AuthProvider = ({children}) => {
 
     const authInfo = {
         user,
+        loading,
         createUser,
         signIn,
         logOut
