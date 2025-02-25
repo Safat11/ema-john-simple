@@ -6,35 +6,37 @@ export const AuthContext = createContext(null);
 
 const auth = getAuth(app);
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const createUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     const signIn = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    const logOut = () =>{
+    const logOut = () => {
         return signOut(auth);
     }
 
     // Observer user auth state
-    useEffect (() => {
-     const unsubscribe =  onAuthStateChanged(auth, currentUser =>{
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             setLoading(false);
         });
 
         // Stop observing while unmounting
-        return () =>{
+        return () => {
             return unsubscribe();
         }
-    },[])
+    }, [])
 
     const authInfo = {
         user,
@@ -45,7 +47,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value = {authInfo}>
+        <AuthContext.Provider value={authInfo}>
             {children}
         </AuthContext.Provider>
     );
