@@ -1,0 +1,64 @@
+.form-container {
+    /* login-card */
+
+    width: 500px;
+    height: 600px;
+    margin: 20px auto;
+    border: 1px solid rgb(149, 160, 167);
+    border-radius: 8px;
+    padding-left: 40px;
+
+}
+
+.form-title {
+    /* H4 */
+    color: rgb(42, 65, 79);
+    font-family: Lato;
+    font-size: 35px;
+    font-weight: 400;
+    line-height: 42px;
+    letter-spacing: 0.25%;
+    text-align: center;
+
+}
+
+.form-control label {
+    display: block;
+
+    /* Subtitle 1 */
+    color: rgb(42, 65, 79);
+    font-size: 17px;
+    line-height: 20px;
+    letter-spacing: 0.15%;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    margin-bottom: 20px;
+}
+
+.form-control input {
+    /* Email */
+    width: 415px;
+    height: 55px;
+    border: 1px solid rgb(149, 160, 167);
+    border-radius: 5px;
+    font-size: 1.5em;
+    padding-left: 10px;
+}
+
+.btn-submit {
+    width: 415px;
+    height: 55px;
+    border-radius: 5px;
+    background: rgba(255, 153, 0, 0.3);
+    border: none;
+    margin-top: 40px;
+    line-height: 25px;
+    letter-spacing: 0.15%;
+    font-size: 21px;
+}
+
+.btn-submit:hover {
+    background: rgba(255, 153, 0, 0.6);
+}
