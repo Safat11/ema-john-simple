@@ -26,14 +26,25 @@ const Shop = () => {
      * DONE: 1. Determine the total number of items:
      * TODO: 2. Decide on the number of items per page:
      * DONE: 3. Calculate the total number of pages:
+     * DONE: 4. Determine the current page:
     */
 
-    useEffect(() => {
+/*     useEffect(() => {
 
         fetch('http://localhost:5000/products')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, []);
+ */
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch(`http://localhost:5000/products?pages=${currentPage}&limit=${itemsPerPage}`);
+            const data = await response.json();
+            setProducts(data)
+        }
+        fetchData();
+    }, [currentPage, itemsPerPage])
 
     useEffect(() => {
 
