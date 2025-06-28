@@ -13,6 +13,19 @@ const Shop = () => {
     const [cart, setCart] = useState([])
     const { totalProducts } = useLoaderData();
 
+    const itemsPerPage = 10; // TODO: make it dynamic
+    const totalPages = Math.ceil(totalProducts / itemsPerPage);
+
+    const pagesNumbers = [...Array(totalPages).keys()];
+
+    console.log(totalProducts);
+
+    /**
+     * DONE: 1. Determine the total number of items:
+     * TODO: 2. Decide on the number of items per page:
+     * DONE: 3. Calculate the total number of pages:
+    */
+
     useEffect(() => {
 
         fetch('http://localhost:5000/products')
@@ -56,30 +69,38 @@ const Shop = () => {
     }
 
     return (
-        <div className='shop-container'>
-            <div className="products-container">
+        <>
+            <div className='shop-container'>
+                <div className="products-container">
+                    {
+                        products.map(product => <Product
+                            key={product._id}
+                            product={product}
+                            handleAddToCart={handleAddToCart}
+                        ></Product>)
+                    }
+                </div>
+                <div className="cart-container">
+                    <Cart
+                        cart={cart}
+                        handleClearCart={handleClearCart}
+                    >
+                        <Link className='proceed-link' to='/orders'>
+                            <button className='btn-proceed'>Review Order
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </button>
+                        </Link>
+                    </Cart>
+                </div>
+
+            </div>
+            {/* pagination */}
+            <div className="pagination">
                 {
-                    products.map(product => <Product
-                        key={product._id}
-                        product={product}
-                        handleAddToCart={handleAddToCart}
-                    ></Product>)
+                    pagesNumbers.map(number => <button key={number}>{number}</button>)
                 }
             </div>
-            <div className="cart-container">
-                <Cart
-                    cart={cart}
-                    handleClearCart={handleClearCart}
-                >
-                    <Link className='proceed-link' to='/orders'>
-                        <button className='btn-proceed'>Review Order
-                            <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
-                    </Link>
-                </Cart>
-            </div>
-
-        </div>
+        </>
     );
 };
 
